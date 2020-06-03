@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Models.EF.Category>
+
+@section titlePage{ Quản lý danh mục sản phẩm }
+
+@section stylePage {
+    <link href="/Assets/admin/css/stytleProductCategory.css" rel="stylesheet" />
+}
+
+@section jsFooter {
+    <script src="/Assets/admin/js/changeStatusCategory.js"></script>
+}
+
+@section fixPage{
+    <style>
+        .pagination-container ul li a {
+            padding: 5px 10px;
+            margin: 0px 5px;
+            color: #0984e3;
+            -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            background-color: #dcdde1;
+        }
+    </style>
+}
+
+<div>
+    <div class="search-add">
+        <div>
+            @using (Html.BeginForm("Index", "ADCategory", FormMethod.Get))
+            {
+                <input type="text" value="@ViewBag.SearchString" placeholder="Tìm kiếm theo tên danh mục" name="searchString" class="search-text">
+                <button type="submit" class="btn btn-success search-btn">Tìm kiếm</button>
+            }
+        </div>
+        <div class="btn-add">
+            <a href="/admin/category/insert" class="btn btn-primary">Thêm mới danh mục sản phẩm</a>
+        </div>
+    </div>
+    <br>
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Mã danh mục</th>
+                    <th>Tên danh mục</th>
+                    <th>Sửa lần cuối</th>
+                    <th>Tình trạng</th>
+                    <th>Tác vụ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="row_@item.IDCategory">
+                        <td>@item.IDCategory</td>
+                        <td>@item.NameCategory</td>
+                        <td>@item.ModifyDate</td>
+                        <td><a href="#" class="text-success btn-active" data-id="@item.IDCategory">@(item.Status ? "Bán" : "Ngừng bán")</a></td>
+                        <td>
+                            <a href="/admin/category/edit/@item.IDCategory" class="btn btn-warning">Sửa</a> -
+                            @Ajax.ActionLink("Xóa", "DeleteCategory", new { @id = item.IDCategory },
+                                    new AjaxOptions
+                                    {
+                                        Confirm = "Bạn có chắc muốn xóa ?\nHãy cân nhắc trước khi xóa vì việc này rất nguy hiểm đến dữ liệu của bạn !",
+                                        OnComplete = "$(row_" + item.IDCategory + ").remove()",
+                                        HttpMethod = "Delete"
+                                    }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br />
+        <div style="margin-left:20px" class="text-center">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+        </div>
+
+    </div>
+</div>

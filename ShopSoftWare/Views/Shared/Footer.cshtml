@@ -1,0 +1,38 @@
+﻿@model Models.EF.Footer
+
+<div class="col-md-6 col-12">
+    <h4 class="title-footer">Hỗ trợ khách hàng</h4>
+    <div class="link-customer">
+        <p><a href="#">Hướng dẫn mua hàng</a></p>
+        <p><a href="#">Hình thức thanh toán</a></p>
+        <p><a href="#">Chính sách đổi trả</a></p>
+        <p> <a href="#">Câu hỏi thường gặp</a></p>
+        <p><a href="#">Hướng dẫn mua hàng</a></p>
+        <p><a href="#">Điều khoản & Điều kiện</a></p>
+        <p><a href="#">Giới thiệu</a></p>
+    </div>
+</div>
+
+<div class="col-md-6 col-12">
+    <h4 class="title-footer">Thông tin liên hệ</h4>
+    <div class="information-shop">
+        <div>
+            <p class="title-information">Địa chỉ: </p>
+            <p class="content-information">@Model.Address</p>
+        </div>
+        <div>
+            <p class="title-information">Điện thoại: </p>
+            <p class="content-information">@Model.Phone</p>
+        </div>
+        <div>
+            <p class="title-information">Email: </p>
+            <p class="content-information">@Model.Email</p>
+        </div>
+        <div>
+            <p class="title-information">Ngày/Giờ làm việc: </p>
+            <p class="content-information">
+                @Model.DayWorkforWeek / @Model.TimeWork
+            </p>
+        </div>
+    </div>
+</div>

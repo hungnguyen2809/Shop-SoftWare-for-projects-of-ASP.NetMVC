@@ -1,0 +1,35 @@
+.slogan{
+    display: flex;
+    align-items: center;
+}
+
+.slogan h4{
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.slogan span{
+    color: #718093;
+}
+
+.slogan div{
+    margin: 10px 5px;
+}
+
+.slogan-main{
+    background-color: #f5f6fa;
+}
+
+@media (max-width: 765px){
+    .slogan{
+        margin-left: 35px;
+    }
+}
+
+.container h5{
+    text-transform: uppercase;
+    text-decoration: underline;
+    color: #6F1E51;
+    margin-bottom: 10px;
+}

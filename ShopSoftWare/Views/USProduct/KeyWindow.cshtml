@@ -1,0 +1,119 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var listProductReferences = (List<Models.EF.Product>)ViewBag.ProductReferences;
+}
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Models.EF.Product>
+
+@section titlePage{ Key Windows Bản Quyền }
+
+@section stylePage {
+    <link href="/Assets/client/css/stytleDescription.css" rel="stylesheet" />
+}
+
+@section fixPage{
+    <style>
+        .pagination-container ul li a {
+            padding: 5px 10px;
+            margin: 0px 5px;
+            color: #0984e3;
+            -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            background-color: #dcdde1;
+        }
+    </style>
+}
+
+<h4 class="title-content">Bản quyền Windows</h4>
+<div class="row">
+    @foreach (var items in Model)
+    {
+        <div class="col-md-4 col-6 content-product">
+            <div>
+                <img src="@items.Images" class="img-fluid" alt="key-ban-quyen-windows">
+            </div>
+            <div class="name-price">
+                <a href="/chi-tiet-san-pham/@items.IDProduct">@items.NameProduct</a>
+                <p class="text-danger">@(items.Price.Value.ToString() == null ? "Liên hệ" : "GIÁ: " + items.Price.Value.ToString("N0") + " VND")</p>
+                @if (items.Quantity <= 0)
+                {
+                    <p class="btn btn-danger">Hết hàng</p>
+                }
+                else
+                {
+                    <a class="btn btn-success" href="/them-gio-hang?id=@items.IDProduct&quantity=1">Thêm vào giỏ</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<br>
+<div style="margin-left:20px" class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("KeyWindow", new { page }))
+</div>
+<br>
+<br>
+
+<hr class="my-2">
+<!-- Description -->
+<div class="row">
+    <div class="description col-md-6 col-12">
+        <div class="header-description">
+            <span>
+                Dùng Windows bản quyền vì?
+            </span>
+        </div>
+        <div class="content-description">
+            <p>Bạn có thể thoải mái cập nhật các bản vá lỗi do Microsoft phát hành.</p>
+            <p>Tính năng bảo mật được nâng cao.</p>
+            <p>Hệ điều hành chạy ổn định không phát sinh lỗi.</p>
+            <p>Hạn chế được virus xâm nhập.</p>
+            <p>Mã hóa được dữ liệu cá nhân tránh bị đánh cắp.</p>
+            <p>
+                Dữ liệu cá nhân được bảo vệ an toàn tuyệt đối không bị mất dữ liệu,
+                đặc biệt là các dữ liệu quan trọng.
+            </p>
+        </div>
+    </div>
+    <div class="description col-md-6 col-12">
+        <div class="header-description">
+            <span>
+                Các loại key Windows ?
+            </span>
+        </div>
+        <div class="content-description">
+            <p>
+                Key bản quyền windows bản OEM sẽ kèm theo máy và không thể chuyển giấy phép từ máy này
+                (không dùng nữa) sang máy khác. Đây là giấy phép có giá rẻ nhất, nếu máy tính bị hỏng
+                thì giấy phép bản quyền cũng mất theo.
+            </p>
+            <p>
+                Retail: là sản phẩm hệ điều hành Windows có được thông qua một cửa hàng bán lẻ (physical
+                hoặc trực tuyến) được cấp phép và được kích hoạt. Phiên bản Retail không giới hạn. Bạn có
+                thể chuyển Key bản quyền từ máy này sang máy khác.
+            </p>
+        </div>
+    </div>
+</div>
+
+<hr class="my-2">
+<br>
+<h3>Có thể bạn quan tâm</h3>
+<div class="row">
+    @foreach (var items in listProductReferences)
+    {
+        <div class="col-md-4 col-6 content-product">
+            <div>
+                <img src="@items.Images" class="img-fluid" alt="hinh-anh-san-pham">
+            </div>
+            <div class="name-price">
+                <a href="/chi-tiet-san-pham/@items.IDProduct">@items.NameProduct</a>
+                <p class="text-danger">@(items.Price.Value.ToString() == null ? "Liên hệ" : "GIÁ: " + items.Price.Value.ToString("N0") + " VND")</p>
+                <a class="btn btn-success" href="/them-gio-hang?id=@items.IDProduct&quantity=1">Thêm vào giỏ</a>
+            </div>
+        </div>
+    }
+</div>

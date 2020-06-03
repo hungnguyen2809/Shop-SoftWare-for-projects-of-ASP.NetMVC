@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@section titlePage{Đăng ký thành viên}
+
+@section jsFooter{
+    <script src="/Assets/client/js/validateRegister.js"></script>
+}
+
+<h2 style="text-transform: uppercase; text-decoration: underline;">Đăng ký tài khoản</h2>
+<div class="row" style="display: flex; justify-content: center;">
+    <div class="form-group col-md-8 col-12">
+
+        <br />
+        <p class="text-danger">Các mục có dấu " * " là bắt buộc</p>
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @using (Html.BeginForm("CreateAccount", "USAccount", FormMethod.Post))
+        {
+            <label for="username" style="margin-top: 20px;">Tên tài khoản<span class="text-danger">*</span></label>
+            <input type="text" name="username" id="username" placeholder="Nhập thông tin" class="form-control">
+            <div class="errUsername text-danger"></div>
+
+            <label for="name" style="margin-top: 20px;">Họ và tên<span class="text-danger">*</span></label>
+            <input type="text" name="name" id="name" placeholder="Nhập thông tin" class="form-control">
+            <div class="errName text-danger"></div>
+
+            <label for="pass" style="margin-top: 20px;">Mật khẩu<span class="text-danger">*</span></label>
+            <input type="password" name="pass" id="pass" placeholder="Nhập thông tin" class="form-control">
+            <div class="errPass text-danger"></div>
+
+            <label for="repass" style="margin-top: 20px;">Nhập lại mật khẩu<span class="text-danger">*</span></label>
+            <input type="password" name="repass" id="repass" placeholder="Nhập thông tin" class="form-control">
+            <div class="errRepass text-danger"></div>
+
+            <label for="address" style="margin-top: 20px;">Địa chỉ<span class="text-danger">*</span></label>
+            <input type="text" name="address" id="address" placeholder="Nhập thông tin" class="form-control">
+            <div class="errAddress text-danger"></div>
+
+            <label for="phone" style="margin-top: 20px;">Số điện thoại<span class="text-danger">*</span></label>
+            <input type="text" name="phone" id="phone" placeholder="Nhập thông tin" class="form-control">
+            <div class="errPhone text-danger"></div>
+
+            <label for="email" style="margin-top: 20px;">Email<span class="text-danger">*</span></label>
+            <input type="text" name="email" id="email" placeholder="Nhập thông tin" class="form-control">
+            <div class="errEmail text-danger"></div>
+
+            <br>
+            <br>
+            <button type="submit" class="btn btn-danger">Đăng ký tài khoản</button>
+        }
+
+    </div>
+
+</div>

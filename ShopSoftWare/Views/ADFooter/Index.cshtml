@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model Models.EF.Footer
+
+@section titlePage{Thông tin liên hệ}
+
+<div class="container">
+    <h4 style="text-transform: uppercase;">Thông tin liên hệ</h4>
+    <br>
+    <div>
+        <h5 style="text-transform: uppercase;">Địa chỉ: </h5>
+        <p style="margin-left: 20px; margin-top: 10px;">@Model.Address</p>
+    </div>
+    <hr class="my-2" />
+    <br>
+    <div>
+        <h5 style="text-transform: uppercase;">Điện thoại: </h5>
+        <p style="margin-left: 20px; margin-top: 10px;">@Model.Phone</p>
+    </div>
+    <hr class="my-2" />
+    <br>
+    <div>
+        <h5 style="text-transform: uppercase;">Email: </h5>
+        <p style="margin-left: 20px; margin-top: 10px;">@Model.Email</p>
+    </div>
+    <hr class="my-2" />
+    <br>
+    <div>
+        <h5 style="text-transform: uppercase;">Ngày / Giờ làm việc: </h5>
+        <p style="margin-left: 20px; margin-top: 10px;">@Model.DayWorkforWeek / @Model.TimeWork</p>
+    </div>
+    <hr class="my-2" />
+
+    <br />
+    <br />
+
+    <div>
+        <a class="btn btn-warning" href="/admin/footer/edit/1">Sửa thông tin</a>
+    </div>
+
+</div>

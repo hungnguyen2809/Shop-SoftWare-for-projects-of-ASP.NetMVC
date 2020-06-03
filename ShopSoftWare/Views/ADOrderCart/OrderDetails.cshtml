@@ -1,0 +1,87 @@
+﻿@{
+
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+    var order = (Models.EF.Order)ViewBag.Order;
+    var orderDetail = (List<Models.EF.OrderDetails>)ViewBag.OrderDetails;
+    var count = 1;
+    long totalPrice = 0;
+}
+
+@section titlePage{Chi tiết đơn hàng}
+
+@section stylePage{
+    <link rel="stylesheet" href="/Assets/admin/css/stytleCartOrder.css">
+}
+
+<div class="container">
+
+    <h4 style="text-transform:uppercase; margin-top:50px;">Thông tin người đặt hàng</h4>
+    <div style="margin-left:20px;">
+        <table>
+            <tr>
+                <td><span style="font-weight:bold">Họ và tên:</span></td>
+                <td><span style="margin-left:10px;">@order.OrderName</span></td>
+            </tr>
+            <tr>
+                <td><span style="font-weight:bold">Địa chỉ:</span></td>
+                <td><span style="margin-left:10px;">@order.OrderAddress</span></td>
+            </tr>
+            <tr>
+                <td><span style="font-weight:bold">Số điện thoại:</span></td>
+                <td><span style="margin-left:10px;">@order.OderPhone</span></td>
+            </tr>
+            <tr>
+                <td><span style="font-weight:bold">Email:</span></td>
+                <td><span style="margin-left:10px;">@order.OrderEmail</span></td>
+            </tr>
+            <tr>
+                <td><span style="font-weight:bold">Yêu cầu:</span></td>
+                <td><span style="margin-left:10px;">@order.OrderRequest</span></td>
+            </tr>
+        </table>
+    </div>
+    <br />
+
+    <h4 style="text-transform:uppercase">Danh sách các mặt hàng</h4>
+
+    <div style="margin-left:20px;">
+
+        @foreach (var items in orderDetail)
+        {
+            <table>
+                <tr style="font-weight:bold">
+                    <td>Sản phẩm thứ @count</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><span style="font-weight:bold">Tên sản phẩm: </span></td>
+                    <td><span style="margin-left:10px;">@items.NameProduct</span></td>
+                </tr>
+                <tr>
+                    <td><span style="font-weight:bold">Số lượng mua: </span></td>
+                    <td><span style="margin-left:10px;">@items.Quantity</span></td>
+                </tr>
+                <tr>
+                    <td><span style="font-weight:bold">Giá bán: </span></td>
+                    <td><span style="margin-left:10px;">@items.Price.Value.ToString("N0") VNĐ </span></td>
+                </tr>
+                <tr>
+                    <td><span style="font-weight:bold">Thành tiền: </span></td>
+                    <td><span style="margin-left:10px;">@((items.Price.GetValueOrDefault(0) * items.Quantity)) VNĐ</span></td>
+                </tr>
+            </table>
+            <br />
+
+            count++;
+            totalPrice += (long)(items.Price.GetValueOrDefault(0) * items.Quantity);
+        }
+
+        <br />
+        <h5 style="font-weight:bold; text-transform:uppercase;">Tổng tiền thanh toán: @totalPrice.ToString("N0") - VNĐ</h5>
+    </div>
+    <br />
+    <br />
+    <a class="btn btn-outline-success" href="/admin/order">Quay lại đơn hàng</a>
+</div>
+
+

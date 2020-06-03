@@ -1,0 +1,52 @@
+﻿@model ShopSoftWare.Models.LoginAdmin
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+
+    <link rel="stylesheet" href="/Assets/admin/css/bootstrap.css">
+    <script src="/Assets/admin/js/jquery-3.5.0.min.js"></script>
+
+    <link rel="stylesheet" href="/Assets/admin/css/stytleLogin.css">
+    <script type="text/javascript" src="/Assets/admin/js/validateLogin.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-3 col-sm-6 col-xs-12 row-container">
+                <h1>Đăng nhập</h1>
+                @using (Html.BeginForm("Login", "ADLogin", FormMethod.Post))
+                {
+                    <br />
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    <br />
+                    <div class="form-group">
+                        <label for="username">Tài khoản</label>
+                        @Html.TextBoxFor(x => x.username, new { @class = "form-control", @id = "username", @placeholder = "Tài khoản" })
+                        <p class="err-user text-danger"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        @Html.PasswordFor(x => x.password, new { @class = "form-control", @id = "password", @placeholder = "Mật khẩu" })
+                        <div class="show-pass">
+                            <span>Hiển thị mật khẩu</span>
+                            <input type="checkbox" id="check">
+                        </div>
+                        <p class="err-pass text-danger"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block my-5" id="login">Đăng nhập</button>
+                    </div>
+                }
+                <a href="#">Quên mật khẩu !</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

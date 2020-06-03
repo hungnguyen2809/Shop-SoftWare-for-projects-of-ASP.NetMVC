@@ -1,0 +1,63 @@
+﻿@{ 
+    var adminSession = (ShopSoftWare.Common.UserLogin) Session[ShopSoftWare.Common.CommonConstants.ADMIN_SESSION];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/2cd2adc0a3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/Assets/admin/css/bootstrap.css">
+    <script src="/Assets/admin/js/jquery-3.5.0.min.js"></script>
+    <script src="/Assets/admin/js/jquery.unobtrusive-ajax.js"></script>
+    <link rel="stylesheet" href="/Assets/admin/css/stytle.css">
+    @RenderSection("stylePage", required:false)
+    @RenderSection("fixsizetextbox", required: false)
+    @RenderSection("fixPage", required: false)
+    <title>@RenderSection("titlePage", required: true)</title>
+</head>
+<body>
+    <div class="header">
+        <div class="header-logo">
+            <i class="far fa-arrow-alt-circle-left"></i>
+            <a href="/trang-chu">Quay lại về Website</a>
+            <img src="/Assets/admin/image/logo.png" alt="logo">
+        </div>
+        <div class="header-content">
+            <span>Cheap software is an indispensable thing</span>
+        </div>
+        <div class="header-menu">
+            @if (adminSession != null)
+            {
+                <ul>
+                    <li>@adminSession.Name</li>
+                    <li>@Html.ActionLink("Đăng xuất", "Logout", "ADLogin")</li>
+                </ul>
+            }
+        </div>
+    </div>
+
+    <hr class="my-2">
+
+    <div class="contain">
+        <div class="menu">
+            <ul>
+                <li class="product"><a href="/admin/product">Sản phẩm</a></li>
+                <li class="product-category"><a href="/admin/category">Danh mục sản phẩm</a></li>
+                <li class="manager-footer"><a href="/admin/footer">Thông tin liên hệ</a></li>
+                <li class="manager-order"><a href="/admin/order">Đơn hàng</a></li>
+                <li class="account"><a href="/admin/user">Tài khoản</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <hr class="my-2" style="clear: both;">
+
+    @RenderSection("jsFooter", required:false)
+    
+</body>
+</html>

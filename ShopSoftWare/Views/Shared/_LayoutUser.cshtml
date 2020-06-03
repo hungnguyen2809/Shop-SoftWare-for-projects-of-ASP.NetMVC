@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <link rel="stylesheet" href="/Assets/client/css/bootstrap.css">
+    <link rel="stylesheet" href="/Assets/client/css/stytle.css">
+    <script src="/Assets/client/js/jquery-3.5.0.min.js"></script>
+
+    @RenderSection("stylePage",required: false)
+    @RenderSection("fixPage", required:false)
+
+    <title>@RenderSection("titlePage", required:true)</title>
+</head>
+<body>
+    <header class="header-content">
+        <div class="container-fluid">
+            @{ Html.RenderAction("Cart", "USHome"); }
+        </div>
+    </header>
+
+    <hr class="my-2">
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+            <i class="fas fa-bars" id="btn"></i>
+            <i class="fas fa-times" id="cancel"></i>
+        </label>
+        <img src="/Assets/client/images/logo.png" class="img-fluid">
+        <ul>
+            <li><a href="/trang-chu"><i class="fas fa-home icon-menu"></i>Trang chủ</a></li>
+            <li><a href="/key-windows"><i class="fab fa-windows icon-menu"></i>Bản quyền Windows</a></li>
+            <li><a href="/key-office"> <i class="fas fa-briefcase icon-menu"></i>Bản quyền Office</a></li>
+            <li><a href="/key-game"><i class="fas fa-download icon-menu"></i>Bản quyền Game</a></li>
+            <li><a href="/key-virus"><i class="fas fa-shield-alt icon-menu"></i>Bản quyền diệt Virus</a></li>
+        </ul>
+    </nav>
+
+    <hr class="my-2 hr-menu-content" width="100%">
+
+    @RenderSection("sologan", required: false)
+
+    <br>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <br>
+    <hr class="my-2">
+
+    <footer>
+        <div class="row container">
+            @{ Html.RenderAction("Footer", "USHome"); }
+        </div>
+    </footer>
+
+    @RenderSection("jsFooter", required: false)
+    @RenderSection("checkInformationCustomer", required: false)
+
+</body>
+</html>

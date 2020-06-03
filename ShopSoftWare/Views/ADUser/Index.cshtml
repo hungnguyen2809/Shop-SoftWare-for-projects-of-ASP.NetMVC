@@ -1,0 +1,93 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section titlePage {Quản lý người dùng}
+
+@model PagedList.IPagedList<Models.EF.User>
+@using PagedList.Mvc;
+
+@section fixPage{
+    <style>
+        .pagination-container ul li a {
+            padding: 5px 10px;
+            margin: 0px 5px;
+            color: #0984e3;
+            -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            background-color: #dcdde1;
+        }
+    </style>
+}
+
+@section stylePage{
+    <link rel="stylesheet" href="/Assets/admin/css/stytleAccount.css">
+}
+
+@section jsFooter{
+    <script src="/Assets/admin/js/changeStatusUser.js"></script>
+}
+
+<div class="search-add">
+    <div>
+        @using (Html.BeginForm("Index", "ADUser", FormMethod.Get))
+        {
+            <input type="text" value="@ViewBag.SearchString" placeholder="Tìm kiếm" name="searchString" class="search-text">
+            <button type="submit" class="btn btn-success search-btn">Tìm kiếm</button>
+        }
+    </div>
+    <div class="btn-add">
+        <a href="/admin/user/create" class="btn btn-primary">Thêm mới tài khoản</a>
+    </div>
+</div>
+<br>
+<!-- Begin Content -->
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Tên tài khoản</th>
+                <th>Tên người dùng</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Ngày tạo</th>
+                <th>Sửa lần cuối</th>
+                <th>Trạng thái</th>
+                <th>Quyền hạn</th>
+                <th>Tác vụ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var items in Model)
+            {
+                <tr id="row_@items.ID">
+                    <td>@items.Username</td>
+                    <td>@items.Name</td>
+                    <td>@items.Email</td>
+                    <td>@items.Phone</td>
+                    <td>@items.CreateDate.ToString()</td>
+                    <td>@(items.ModifiDate.ToString() == null ? "Chưa thay đổi" : items.ModifiDate.ToString() )</td>
+                    <td><a href="#" class="text-success btn-active" data-id="@items.ID">@(items.Status ? "Kích hoạt" : "Khóa")</a></td>
+                    <td>@(items.Permission ? "admin" : "user")</td>
+                    <td>
+                        <a href="/admin/user/edit/@items.ID" class="btn btn-warning">Sửa</a> -
+                        @Ajax.ActionLink("Xóa", "DeleteUser", new { @id = items.ID },
+                                     new AjaxOptions
+                                     {
+                                         Confirm = "Bạn có chắc muốn xóa ?\nHãy cân nhắc trước khi xóa vì việc này rất nguy hiểm đến dữ liệu của bạn !",
+                                         OnComplete = "$(row_" + items.ID + ").remove()",
+                                         HttpMethod = "Delete"
+                                     }, new { @class = "btn btn-danger" } )                     
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <div style="margin-left:20px" class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+    </div>
+    <br />
+</div>

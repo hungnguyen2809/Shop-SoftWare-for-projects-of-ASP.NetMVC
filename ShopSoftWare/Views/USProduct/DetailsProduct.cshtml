@@ -1,0 +1,35 @@
+﻿@model Models.EF.Product
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@section titlePage{Chi tiết sản phẩm}
+
+@section stylePage{
+    <link href="/Assets/client/css/stytleDetails.css" rel="stylesheet" />
+}
+
+<div>
+
+    <div class="content">
+        <div class="details-img">
+            <img src="@Model.Images" alt="san-pham">
+        </div>
+        <div class="details-content">
+            <p class="name-product">
+                @Model.NameProduct
+            </p>
+            <p class="price-product">
+                Giá: @(Model.Price.Value.ToString() == null ? "Liên hệ" : Model.Price.Value.ToString("N0")) VND
+            </p>
+            <p class="add-cart">
+                <a href="/them-gio-hang?id=@Model.IDProduct&quantity=1" class="btn btn-success">Thêm vào giỏ</a>
+            </p>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div>
+        <a href="/trang-chu" class="btn btn-warning">Quay lại trang chủ</a>
+    </div>
+</div>

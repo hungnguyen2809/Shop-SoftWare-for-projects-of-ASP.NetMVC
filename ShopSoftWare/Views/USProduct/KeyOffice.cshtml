@@ -1,0 +1,112 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var listProductReferences = (List<Models.EF.Product>)ViewBag.ProductReferences;
+}
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Models.EF.Product>
+
+@section titlePage{ Key Office Bản Quyền }
+
+@section stylePage {
+    <link href="/Assets/client/css/stytleDescription.css" rel="stylesheet" />
+}
+
+@section fixPage{
+    <style>
+        .pagination-container ul li a {
+            padding: 5px 10px;
+            margin: 0px 5px;
+            color: #0984e3;
+            -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+            background-color: #dcdde1;
+        }
+    </style>
+}
+
+<h4 class="title-content">Bản quyền Office</h4>
+<div class="row">
+    @foreach (var items in Model)
+    {
+        <div class="col-md-4 col-6 content-product">
+            <div>
+                <img src="@items.Images" class="img-fluid" alt="key-ban-quyen-office">
+            </div>
+            <div class="name-price">
+                <a href="/chi-tiet-san-pham/@items.IDProduct">@items.NameProduct</a>
+                <p class="text-danger">@(items.Price.Value.ToString() == null ? "Liên hệ" : "GIÁ: " + items.Price.Value.ToString("N0") + " VND")</p>
+                @if (items.Quantity <= 0)
+                {
+                    <p class="btn btn-danger">Hết hàng</p>
+                }
+                else
+                {
+                    <a class="btn btn-success" href="/them-gio-hang?id=@items.IDProduct&quantity=1">Thêm vào giỏ</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<br>
+<div style="margin-left:20px" class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("KeyOffice", new { page }))
+</div>
+<br>
+<br>
+
+<hr class="my-2">
+<!-- Description -->
+<div class="row">
+    <div class="description col-md-6 col-12">
+        <div class="header-description">
+            <span>
+                Tính năng nổi bật trên Office bản mới !
+            </span>
+        </div>
+        <div class="content-description">
+            <p>Nâng cấp tính năng đám mây.</p>
+            <p>Nâng cấp độ ổn định.</p>
+            <p>Cải tiến bảo mật.</p>
+            <p>Thêm tính năng vẽ tự do bằng bút chì.</p>
+            <p>Thêm các dạng công thức biểu đồ mới trong Word và Excel.</p>
+            <p>Thêm tính năng phân tích dữ liệu vào trong Excel</p>
+            <p>Thêm tính năng đưa mô hình nhân vật 3D và các hiệu ứng chuyển slide vào Powerpoint.</p>
+        </div>
+    </div>
+    <div class="description col-md-6 col-12">
+        <div class="header-description">
+            <span>
+                Thông tin khác !
+            </span>
+        </div>
+        <div class="content-description">
+            <p>
+                Microsoft đã phát hành phiên bản chính thức của Microsoft Office 2019 cho người dùng Windows và MacOS.
+                Bộ phần mềm văn phòng Office 2019 có các tính năng giống Office 365. Nhưng với Office 2019 người
+                dùng chỉ cần mua một lần để dùng vĩnh viễn chứ không phải trả phí hàng tháng như Office 365.
+            </p>
+        </div>
+    </div>
+</div>
+
+<hr class="my-2">
+<br>
+<h3>Có thể bạn quan tâm</h3>
+<div class="row">
+    @foreach (var items in listProductReferences)
+    {
+        <div class="col-md-4 col-6 content-product">
+            <div>
+                <img src="@items.Images" class="img-fluid" alt="hinh-anh-san-pham">
+            </div>
+            <div class="name-price">
+                <a href="/chi-tiet-san-pham/@items.IDProduct">@items.NameProduct</a>
+                <p class="text-danger">@(items.Price.Value.ToString() == null ? "Liên hệ" : "GIÁ: " + items.Price.Value.ToString("N0") + " VND")</p>
+                <a class="btn btn-success" href="/them-gio-hang?id=@items.IDProduct&quantity=1">Thêm vào giỏ</a>
+            </div>
+        </div>
+    }
+</div>
